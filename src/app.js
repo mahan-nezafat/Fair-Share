@@ -1,12 +1,14 @@
 import React from 'react';
-import Profiles from './components/profiles/profiles';
+import Profiles from './components/Profiles/Profiles';
 import Bill from './components/Bill';
-
+import './index.css'
 const App = () => {
     return ( 
         <>
-            <Profiles />
-            <Bill />
+           <div className='app'>
+                <Profiles />
+                <Bill />
+           </div>
         </>
     );
 }
