@@ -1,11 +1,14 @@
 import React from 'react';
+import Profiles from './components/profiles/profiles';
+import Bill from './components/Bill';
 
 const App = () => {
     return ( 
         <>
-            <h1>app is ready</h1>
+            <Profiles />
+            <Bill />
         </>
-     );
+    );
 }
  
 export default App;
