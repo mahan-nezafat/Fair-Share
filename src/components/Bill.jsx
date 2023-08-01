@@ -1,25 +1,56 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-const Bill = () => {
+const Bill = ({ onChangeBill, users }) => {
+
+    const showUser = users.filter(user => user.show );
+    
+    const [bill, setBill] = useState(0);
+    const [yourExpense, setYourExpense] = useState(0);
+    const [payingPerson, setPayingPerson] = useState('you');
+
+    let friendExpense = bill - yourExpense;
+
+    function handleSumbit(e) {
+        e.preventDefault();
+
+        const billData = {id: showUser[0].id, bill, yourExpense, friendExpense, payingPerson};
+
+        onChangeBill(billData);
+
+        setBill(0);
+
+        setYourExpense(0);
+
+        setPayingPerson('you');
+
+    }
+
     return ( 
         <>
-            <div>
-                <form action="" className="form-split-bill">
-                    <h2>SPLIT A BILL WITH CLARK</h2>
-                    <label htmlFor="">Bill value</label>
-                    <input type="text" />
-                    <label htmlFor=""> Your expense</label>
-                    <input type="text" />
-                    <label htmlFor="">Clark's expense</label>
-                    <input type="text" />
-                    <label htmlFor="">Who is paying the bill</label>
-                    <select name="" id="">
-                        <option value="">You</option>
-                        <option value="">Clark</option>
-                    </select>
-                    <button className="button">Split bill</button>
-                </form>
-            </div>
+            {
+               showUser[0] &&
+
+                <div>
+                    <form className="form-split-bill" onSubmit={handleSumbit}>
+                        <h2>SPLIT A BILL WITH {showUser[0].name}</h2>
+                        <label >Bill value</label>
+                        <input type="text" value={bill} onChange={(e) => setBill(e.target.value)}/>
+                        <label > Your expense</label>
+                        <input type="text" value={yourExpense} onChange={(e) =>  setYourExpense(e.target.value)} />
+                        <label >{showUser[0].name}'s expense</label>
+                        <input type="text" value={friendExpense} readOnly/>
+                        <label >Who is paying the bill</label>
+                        <select value={payingPerson}  onChange={(e) => setPayingPerson(e.target.value)}>
+                            <option value="you">You</option>
+                            <option value={showUser[0].name}>{showUser[0].name}</option>
+                        </select>
+                        <button className="button">Split bill</button>
+                    </form>
+                </div>
+
+               
+            }
+            <div></div>
         </>
     );
 }

@@ -1,17 +1,20 @@
 import React from 'react';
 import Profile from './Profile';
 import NewProfile from './NewProfile';
-const Profiles = () => {
+const Profiles = ({ users, onSelect, onAddUser }) => {
+    console.log(typeof users)
     return ( 
         <>
             <div className="sidebar">
                 <ul>
-                    <Profile />
-                    <Profile />
-                    <Profile />
+                    {
+                        users.map((user, index) => {
+                            return <Profile user={user} key={user.id} onSelect={onSelect} />
+                        })
+                    }
                 </ul>
                 
-                    <NewProfile />
+                    <NewProfile onAddUser={onAddUser} />
             </div>
         </>
     );
