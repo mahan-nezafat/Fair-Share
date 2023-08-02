@@ -11,6 +11,7 @@ const NewProfile = ({ onAddUser }) => {
     
     function handleSumbit(e) {
         e.preventDefault();
+        if(!name || !image) return
         const newUser = {id: Date.now(), name, avatar: image + `?u=${Date.now()}`, bill: 0, show: false};
         onAddUser(newUser);
         setName('');
