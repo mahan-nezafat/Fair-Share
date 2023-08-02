@@ -8,10 +8,12 @@ const Bill = ({ onChangeBill, users }) => {
     const [yourExpense, setYourExpense] = useState(0);
     const [payingPerson, setPayingPerson] = useState('you');
 
-    let friendExpense = bill - yourExpense;
+    let friendExpense = bill ? bill - yourExpense : "";
 
     function handleSumbit(e) {
         e.preventDefault();
+
+        if(!bill || !yourExpense) return
 
         const billData = {id: showUser[0].id, bill, yourExpense, friendExpense, payingPerson};
 
@@ -34,11 +36,11 @@ const Bill = ({ onChangeBill, users }) => {
                     <form className="form-split-bill" onSubmit={handleSumbit}>
                         <h2>SPLIT A BILL WITH {showUser[0].name}</h2>
                         <label >Bill value</label>
-                        <input type="text" value={bill} onChange={(e) => setBill(e.target.value)}/>
+                        <input type="number" value={bill} onChange={(e) => setBill(e.target.value)}/>
                         <label > Your expense</label>
-                        <input type="text" value={yourExpense} onChange={(e) =>  setYourExpense(e.target.value)} />
+                        <input type="number" value={yourExpense} onChange={(e) =>  setYourExpense(Number(e.target.value) >= bill ? yourExpense : Number(e.target.value))} />
                         <label >{showUser[0].name}'s expense</label>
-                        <input type="text" value={friendExpense} readOnly/>
+                        <input type="number" value={friendExpense} readOnly disabled/>
                         <label >Who is paying the bill</label>
                         <select value={payingPerson}  onChange={(e) => setPayingPerson(e.target.value)}>
                             <option value="you">You</option>
