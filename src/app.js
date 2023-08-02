@@ -47,8 +47,11 @@ const App = () => {
             updateUser.show = false;
         }
         const newUsers = users.filter(user => user.id !== id);
+        newUsers.map(user => {
+            return user.show = false; 
+        });
 
-        setUsers([updateUser, ...newUsers]);
+        setUsers([{...updateUser}, ...newUsers]);
     }
 
     function handleAddUser(newUser) {
